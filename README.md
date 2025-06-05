@@ -1,0 +1,3 @@
+# Citadel Inventory Management App
+
+Citadel is a streamlined inventory management application designed to help businesses efficiently track, organize, and manage their stock. With features like real-time inventory updates, automated alerts for low stock, and detailed reporting, Citadel simplifies inventory control and reduces manual errors. Its user-friendly interface ensures quick onboarding and smooth daily operations for teams of any size.
