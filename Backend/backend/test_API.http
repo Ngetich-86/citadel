@@ -1,0 +1,28 @@
+### Get all categories
+GET http://127.0.0.1:8000/categories/
+
+### Get a single category
+GET http://127.0.0.1:8000/categories/1/
+
+### Create a category
+POST http://127.0.0.1:8000/categories/
+Content-Type: application/json
+
+{
+  "name": "Books",
+  "description": "Educational and fun books",
+  "image_url": "https://cdn.pixabay.com/photo/2025/06/05/10/14/plant-9642685_1280.jpg"
+}
+
+### Update a category
+PUT http://127.0.0.1:8000/categories/1/
+Content-Type: application/json
+
+{
+  "name": "Books Updated",
+  "description": "Educational and fun books",
+  "image_url": "https://cdn.pixabay.com/photo/2025/06/05/10/14/plant-9642685_1280.jpg"
+}
+
+### Delete a category
+DELETE http://127.0.0.1:8000/api/categories/1/
