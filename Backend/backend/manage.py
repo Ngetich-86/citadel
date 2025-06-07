@@ -2,7 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from django.db import connections
+from django.db.utils import OperationalError
 
+def test_db_connection():
+    db_conn = connections['default']
+    try:
+        db_conn.cursor()
+        print("✅ Database connection successful!")
+    except OperationalError:
+        print("❌ Database connection failed.")
 
 def main():
     """Run administrative tasks."""

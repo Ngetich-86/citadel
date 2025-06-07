@@ -4,6 +4,7 @@ from django.utils import timezone
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(max_length=200, blank=True)
+    image_url = models.URLField(max_length=200, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -27,12 +28,11 @@ class Supplier(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    # sku = models.CharField(max_length=50, unique=True)
     description = models.TextField(max_length=500, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     cost_price = models.DecimalField(max_digits=10, decimal_places=2)
+    image_url = models.URLField(max_length=200, blank=True)
     quantity_in_stock = models.IntegerField(default=0)
-    # reorder_level = models.IntegerField(default=10)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')
     supplier = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, related_name='products')
     created_at = models.DateTimeField(default=timezone.now)
@@ -51,7 +51,7 @@ class Payment(models.Model):
     ]
     
     PAYMENT_METHOD_CHOICES = [
-        ('cash', 'Cash'),
+        ('mpesa', 'mpesa'),
         ('credit_card', 'Credit Card'),
         ('bank_transfer', 'Bank Transfer'),
     ]
