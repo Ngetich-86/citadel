@@ -150,9 +150,16 @@ pip install django-environ
 pip freeze > requirements.txt
 ```
 
-### 2. Configure Database Settings
+### Configure Database Settings
 
-Update your `config/settings.py` file to use PostgreSQL:
+#### Store Neon DB connection string in .env
+- 1. Install required packages
+Install python-decouple and optionally dj-database-url:
+
+```python
+pip install python-decouple dj-database-url
+```
+- 2. Create your .env file in your Django project root (same level as manage.py), create a file named .env.
 
 ```python
 import environ
@@ -163,14 +170,7 @@ environ.Env.read_env()
 
 # Database settings
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST', default='localhost'),
-        'PORT': env('DB_PORT', default='5432'),
-    }
+    'default': dj_database_url.parse(config('DATABASE_URL'), conn_max_age=600)
 }
 ```
 
@@ -186,12 +186,16 @@ DB_HOST=localhost
 DB_PORT=5432
 ```
 
-### 4. Create Database
-
-1. Open PostgreSQL command prompt or pgAdmin
-2. Create a new database:
-```sql
-CREATE DATABASE your_database_name;
+### 4. registered in the INSTALLED_APPS setting in your Django project. 
+ [
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'server',#<=====================This
+]
+### test database connection status
+```bash
+python manage.py shell -c "from manage import test_db_connection; test_db_connection()"
 ```
 
 ### 5. Run Migrations
@@ -202,29 +206,9 @@ After setting up the database, run migrations:
 python manage.py migrate
 ```
 
-### Common PostgreSQL Commands
 
+### Create the initial migrations for your models:
+- Run
 ```bash
-# Connect to PostgreSQL
-psql -U your_username
-
-# List all databases
-\l
-
-# Connect to a specific database
-\c database_name
-
-# List all tables
-\dt
-
-# Exit PostgreSQL
-\q
+ python manage.py makemigrations
 ```
-
-### Troubleshooting PostgreSQL
-
-1. Make sure PostgreSQL service is running
-2. Verify database credentials in .env file
-3. Check if psycopg2 is installed correctly
-4. Ensure database exists and is accessible
-5. Check PostgreSQL logs for specific errors
