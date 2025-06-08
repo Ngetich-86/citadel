@@ -1,5 +1,29 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import UserManager
+
+class CustomUserManager(UserManager):
+    def create_user(self, username, email=None, password=None, **extra_fields):
+        return super().create_user(username, email, password, **extra_fields)
+
+    def create_superuser(self, username, email=None, password=None, **extra_fields):
+        return super().create_superuser(username, email, password, **extra_fields)
+
+class CustomUser(AbstractUser):
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    profile_picture = models.URLField(max_length=200, blank=True, null=True)
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        db_table = 'custom_user'
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+        swappable = 'AUTH_USER_MODEL'
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
