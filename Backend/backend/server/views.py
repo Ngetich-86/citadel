@@ -101,7 +101,7 @@ def category_detail(request, pk):
 
 #======================================================Products========================================================
 
-api_view(['GET', 'POST'])
+@api_view(['GET', 'POST'])
 def get_products(request):
     try:
         if request.method == 'GET':
@@ -185,7 +185,7 @@ def product_detail(request, pk):
 
 #=======================================================Supplier========================================================
 
-api_view(['GET', 'POST'])
+@api_view(['GET', 'POST'])
 def get_suppliers(request):
     try:
         if request.method == 'GET':
