@@ -1,0 +1,6 @@
+# Local secrets: never commit. See Backend/backend/.env.example
+.env
+*.env
+!.env.example
+__pycache__/
+*.sqlite3
